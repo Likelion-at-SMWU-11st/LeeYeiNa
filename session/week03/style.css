@@ -1,3 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Noto+Sans+KR:wght@400;700;900&family=Yeon+Sung&display=swap");
+* {
+  font-family: "Nonto Sans KR", sans-serif;
+}
+
 body,
 h1,
 h2 {
