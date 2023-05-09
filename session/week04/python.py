@@ -3,6 +3,7 @@ print("회원가입")
 print("================================")
 
 register = False
+user={}
 
 while not register:
     print("회원가입을 진행하시겠습니까?")
@@ -14,6 +15,22 @@ while not register:
         register = True
         print("================================")
         print("회원가입이 진행됩니다.")
+        username = input("ID : ")
+        while True:
+            pwd = input("PWD : ")
+            pwd2 = input("Check PWD : ")
+            if pwd == pwd2:
+                break
+            else:
+                print("비밀번호가 일치하지 않습니다")
+        name = input("이름 : ")
+        while True:
+            birth = input("생년월일(6자리) : ")
+            if len(birth) == 6:
+               break
+            else:
+                print("생년월일을 6자리로 다시 입력해주세요")
+        email = input("이메일 : ")
         print("================================")
     elif answer == 'n':
         print("================================")
