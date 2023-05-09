@@ -1,0 +1,52 @@
+@import url("https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Noto+Sans+KR:wght@400;700;900&family=Yeon+Sung&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+* {
+  font-family: "Jua", "Nonto Sans KR", sans-serif;
+}
+
+body,
+h1{
+  margin: 5px;
+  padding: 5px;
+}
+
+body {
+  min-width: fit-content;
+  margin : 5px;
+}
+
+h1 {
+  font-size: 36px;
+  font-weight: bold;
+  font-style: italic;
+}
+
+h2 {
+  background-color: rgb(156, 198, 243);
+  font-size: 20px;
+  color: black;
+  padding: 5px 15px;
+}
+
+.mainbox {
+  width: 610px;
+  padding: 30px;
+  margin: 30px;
+  margin-right: auto;
+  margin-left: auto;
+  border: 1px solid;
+  box-shadow: 0 1px 20px 0 rgba(0, 0, 0, 0.1);
+}
+
+.title-box {
+  text-align: right;
+  margin: 20px 40px;
+}
+
+p, ul, ol{
+  font-size: 20px;
+}
+
+li{
+  margin: 15px;
+}
