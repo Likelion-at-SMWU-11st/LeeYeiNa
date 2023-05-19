@@ -1,0 +1,23 @@
+@import url("https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Nanum+Pen+Script&family=Noto+Sans+KR:wght@400;700;900&family=Yeon+Sung&display=swap");
+
+* {
+  font-family: "Do Hyeon", "sans-serif";
+}
+
+.mar {
+  margin: 50px;
+}
+
+.fam {
+  margin: 30px;
+  padding: 15px;
+  background-color: rgb(152, 245, 214);
+  border-radius: 20px;
+}
+
+.title_ {
+  font-size: 25px;
+}
+.main {
+  font-size: 20px;
+}
