@@ -8,11 +8,11 @@ while not register:
 
     print("회원가입을 진행하시겠습니까?")
     print("y : 진행      n : 취소")
-    answer= input(">>   ")
+    answer = input(">>   ")
     answer = answer.lower()
 
-    if answer == 'y':
-        user={}
+    if answer == "y":
+        user = {}
         register = True
         print("================================")
         print("회원가입이 진행됩니다.")
@@ -28,13 +28,13 @@ while not register:
         while True:
             birth = input("생년월일(6자리) : ")
             if len(birth) == 6:
-               break
+                break
             else:
                 print("생년월일을 6자리로 다시 입력해주세요")
         email = input("이메일 : ")
         print("================================")
-        user['username'] = username
-        user['password'] = pwd
+        user["username"] = username
+        user["password"] = pwd
         user["name"] = name
         user["birth"] = birth
         user["email"] = email
@@ -48,14 +48,14 @@ while not register:
         answer = input(">>   ")
         answer = answer.lower()
 
-        if answer == 'y':
+        if answer == "y":
             pass
-        else :
+        else:
             exit()
 
-    elif answer == 'n':
+    elif answer == "n":
         print("================================")
         print("회원가입이 취소됩니다.")
         print("================================")
-    else :
+    else:
         print("입력 값을 확인해주세요.")
