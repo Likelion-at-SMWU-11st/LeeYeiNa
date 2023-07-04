@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path
 from demos.views import helloBabyLion
 
-#첫번째 인자 url로 들어오면 두번째 인자 함수를 실행
+# 첫번째 인자 url로 들어오면 두번째 인자 함수를 실행
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("crazy/", helloBabyLion),
