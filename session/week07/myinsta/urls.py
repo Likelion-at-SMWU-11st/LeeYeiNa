@@ -16,7 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from lotto.views import lotto_basic
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path('lottobasic/', lotto_basic, name = 'lotto_basic'),
 ]
+
