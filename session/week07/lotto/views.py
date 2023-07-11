@@ -28,5 +28,9 @@ def lotto_challenge_output(request):
         for _ in range(7):
             temp.append(random.randint(1, 45))
         lotto_num.append(temp)
-
+    '''
+    pull number = [index for index in range(1, 46)]
+    for _ in range(int(game)):
+        lotto_num.append(random.sample(pull_number, 6)) #pull number에서 6번 random하게 뽑기
+    '''
     return render(request, 'lotto_challenge_output.html', {'game': game, 'lotto_num': lotto_num})
