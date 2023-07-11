@@ -1,0 +1,7 @@
+{% extends 'base.html'%} {% block title %} Index {% endblock %} 
+{% block content %}
+  <h1>인덱스</h1>
+  <ul>
+    <li><a href = "{% url 'posts:post-list' %}">이동</li>
+  </ul>
+{% endblock %}
