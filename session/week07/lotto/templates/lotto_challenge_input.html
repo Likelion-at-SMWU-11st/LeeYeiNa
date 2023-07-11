@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>로또 번호 게임 횟수 입력</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body
+    style="
+      padding: 30px;
+      font-family: 'Gowun Dodum', sans-serif;
+      font-size: 15pt;
+    "
+  >
+    <p>로또 번호를 받아보세요!</p>
+
+    <!--lotto/output으로 날리기-->
+    <form action="/lotto/output">
+      몇 개의 게임을 뽑으시겠습니까?<br />
+      <input type="int" name="game" value="1" />
+      <input type="submit" value="로또 번호 추출하기" style="font-size: 13pt" />
+    </form>
+  </body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>로또 번호 추출하기</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body style="padding: 30px; font-family: 'Gowun Dodum', sans-serif">
+    <h1>생성된 로또 번호입니다.</h1>
+    <h2>게임 수 : {{game}}</h2>
+    <h2>
+      로또 번호 : {% for i in lotto_num %}
+      <p>{{i}}</p>
+      {% endfor %}
+    </h2>
+
+    <a href="/lotto/input">돌아가기</a>
+  </body>
+</html>
