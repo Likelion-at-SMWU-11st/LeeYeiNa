@@ -16,10 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from lotto.views import lotto_basic
+from lotto.views import lotto_basic, lotto_challenge_input, lotto_challenge_output
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('lottobasic/', lotto_basic, name = 'lotto_basic'),
+    path('lotto/input', lotto_challenge_input, name = 'lotto_input'),
+    path('lotto/output', lotto_challenge_output, name = 'lotto_output'),
 ]
 
