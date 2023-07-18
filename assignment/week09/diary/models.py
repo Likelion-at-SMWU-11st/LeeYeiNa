@@ -4,6 +4,6 @@ from django.db import models
 
 
 class contents(models.Model):
-    subject = models.CharField(_(""), max_length=50)
+    subject = models.CharField(max_length=50)
     content = models.TextField()
     create_date = models.DateTimeField()

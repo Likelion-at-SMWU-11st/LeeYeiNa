@@ -16,7 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from diary.views import class_view, write
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("today/", class_view.as_view()),
+    path('write/', write),
 ]
