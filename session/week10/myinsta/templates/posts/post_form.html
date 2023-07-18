@@ -1,0 +1,24 @@
+{% extends 'base.html' %} {% block title %}글 입력{% endblock %}
+<!--00-->
+{%block content %}
+<h1>Post 입력 화면</h1>
+<!-- form action="데이터가 전달될 주소" enctype="인코딩 타입 지정"-->
+<form
+  action="{%url 'posts:post-create' %}"
+  method="POST"
+  enctype="multipart/form-data"
+>
+  {% csrf_token %}
+  <div>
+    <label for="id_image">이미지</label>
+    <input type="file" name="image" accept="image/*" id="id_image" />
+  </div>
+  <div>
+    <label for="id_content">내용</label>
+    <textarea name="content" id="id_content" cols="30" rows="10"></textarea>
+  </div>
+  <div>
+    <input type="submit" />
+  </div>
+</form>
+{% endblock %}
