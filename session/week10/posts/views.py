@@ -1,5 +1,5 @@
-from django.shortcuts import render, redirect
-from django.http import HttpResponse, JsonResponse
+from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponse, JsonResponse, Http404
 from django.views.generic import ListView
 from django.contrib.auth.decorators import login_required
 from .models import Post
@@ -31,9 +31,8 @@ def post_detail_view(request, id):
     context = {'post': post, }
     return render(request, 'posts/post_detail.html', context)
 
+
 # 로그인 시에만 처리 가능한 함수
-
-
 @login_required
 def post_create_view(request):
     if request.method == 'GET':
@@ -47,8 +46,10 @@ def post_create_view(request):
         return redirect('index')
 
 
+@login_required
 def post_update_view(request, id):
-    post = Post.objects.get(id=id)
+    # post = Post.objects.get(id=id)
+    post = get_object_or_404(Post, id=id)  # Post가 없을 경우 404페이지로 이동시켜줌
     if request.method == 'GET':
         context = {'post': post}
         return render(request, 'posts/post_form.html', context)
@@ -66,8 +67,18 @@ def post_update_view(request, id):
         return redirect('posts:post-detail', post.id)
 
 
+@login_required
 def post_delete_view(request, id):
-    return render(request, 'posts/post_confirm_delete.html')
+    post = get_object_or_404(Post, id=id)
+    if request.user != post.writer:
+        return Http404("잘못된 접근입니다.")
+
+    if request.method == "GET":
+        context = {'post': post}
+        return render(request, 'posts/post_confirm_delete.html', context)
+    elif request.method == "POST":
+        post.delete()  # 삭제하기
+        return redirect('index')
 
 
 class class_view(ListView):
