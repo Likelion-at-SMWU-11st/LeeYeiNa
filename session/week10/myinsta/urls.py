@@ -17,5 +17,5 @@ urlpatterns = [
     path('', index, name='index'),
     path('posts/', include('posts.urls', namespace='posts')),
 ]
-
+# 이미지 파일들이 설정된 폴더에 생성
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

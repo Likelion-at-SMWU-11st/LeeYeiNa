@@ -2,6 +2,8 @@
 <!---->
 {% block content%}
 <h1>Post 목록 화면</h1>
+
+<!--딕셔너리 형태로 전달 받은 'post_list'-->
 {%for post in post_list %}
 <div>
   {{post.id}}<br />
@@ -10,4 +12,6 @@
   {{post.created_at}}<br />
   {{post.writer}}<br />
 </div>
-{%endfor%} {% endblock %}
+{%endfor%}
+<!---->
+{% endblock %}

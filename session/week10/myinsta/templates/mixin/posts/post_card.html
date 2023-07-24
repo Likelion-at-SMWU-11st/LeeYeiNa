@@ -5,6 +5,9 @@
     <a href="#">
       <span class="card__user-name">{{post.writer}}</span>
     </a>
+    {%if request.user == post.writer %} <!--게시글을 작성한 사람은 게시글 수정 가능-->
+      <a href = "{%url  'posts:post-update' post.id%}">수정하기</a>
+    {%endif%}
   </div>
   <div class="card__body">
     <!--이미지가 있는 경우-->
@@ -51,42 +54,44 @@
     <div class="card__main-text">
       <p>
         <span class="card__user-name">{{post.writer}}</span>
-        <!-- list 보기인 경우 잘린 본문 표시-->
+        <!-- list 보기인 경우 잘린 본문(간략하게) 표시-->
         {%if not detail%} {{post.content|truncatechars:35}}
         <!--상세 보기인 경우 전체 본문 표시-->
         {%else%} {{post.content}} {%endif%}
       </p>
+
       <!--list 보기인 경우 더보기 버튼 노출-->
       {%if not detail%}
       <a href="{%url 'posts:post-detail' post.id%}"> 더보기 </a>
       {%endif%}
     </div>
     <div>
-      <p>댓글{{post.comment_set.all.count}}개 
+      <p>댓글{{post.comment_set.all.count}}개 <!--총 댓글 개수 표시-->
         {%if not detail%}
-            <a href = "{%url 'posts:post-detail' post.id %}">모두 보기</p>
+            <a href = "{%url 'posts:post-detail' post.id %}"> <!-- url 이름 + id-->
+              모두 보기</p>
         {%endif%}
       </p>
       <ul class="card comment-group">
         {%if not detail%}
-            {%for comment in post.comment_set.all|slice:":2"%}
-        <li>
-          <p>
-            <span class="card__user-name">{{comment.writer}}</span
-            >{{comment.content}}
-          </p>
-        </li>
-        {%endfor%}
-    {%else%}
-        {%for comment in post.comment_set.all%}
-        <li>
-          <p>
-            <span class="card__user-name">{{comment.writer}}</span
-            >{{comment.content}}
-          </p>
-        </li>
-        {%endfor%}
-    {%endif%}
+          {%for comment in post.comment_set.all|slice:":2"%} <!--여러 개의 리스트 중에 2개만 보이기-->
+            <li>
+              <p>
+                <span class="card__user-name">{{comment.writer}}</span>
+                {{comment.content}}
+              </p>
+            </li>
+          {%endfor%}
+        {%else%}
+          {%for comment in post.comment_set.all%}
+            <li>
+              <p>
+                <span class="card__user-name">{{comment.writer}}</span>
+                {{comment.content}}
+              </p>
+            </li>
+          {%endfor%}
+        {%endif%}
       </ul>
       <p class="card__created-at">{{post.created_at|date:"Y년 m월 d일"}}</p>
     </div>

@@ -13,6 +13,7 @@
       <nav>
         <ul class="bottom-menu-group">
           <li>
+            <a href="{%url 'index' %}" />
             <img
               src="{% static 'icons/home_outlined_black_36dp.svg' %}"
               alt="홈"
@@ -25,6 +26,7 @@
             />
           </li>
           <li>
+            <!--posts안에 있는 이름이 post-create인 url-->
             <a href="{%url 'posts:post-create'%}">
               <img
                 src="{% static 'icons/add_box_outlined_black_36dp.svg' %}"
