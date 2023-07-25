@@ -3,6 +3,7 @@ from django.http import HttpResponse, JsonResponse, Http404
 from django.views.generic import ListView
 from django.contrib.auth.decorators import login_required
 from .models import Post
+from .forms import PostBasedfForm, PostCreatedForm, PostDetailForm
 
 
 def index(request):
@@ -28,7 +29,10 @@ def post_detail_view(request, id):
     except Post.DoesNotExist:  # 존재하지 않는 게시글을 조회할 경우
         return redirect('index')  # index.html로 리다이렉트
     post = Post.objects.get(id=id)
-    context = {'post': post, }
+    context = {
+        'post': post,
+        'form': PostDetailForm(),
+    }
     return render(request, 'posts/post_detail.html', context)
 
 
@@ -44,6 +48,32 @@ def post_create_view(request):
         # Post모델에 전달받은 데이터 저장
         Post.objects.create(image=image, content=content, writer=request.user)
         return redirect('index')
+
+
+@login_required
+def post_create_form_view(request):
+    if request.method == 'GET':
+        form = PostCreatedForm()
+        context = {'form': form}
+        return render(request, 'posts/post_form2.html', context)
+    else:
+        form = PostCreatedForm(request.POST, request.FILES)
+        if form.is_valid():
+            Post.objects.create(
+                image=form.cleaned_data['image'],
+                content=form.cleaned_data['content'],
+                writer=request.user,
+            )
+        else:  # 잘못된 형식이면 다시 입력
+            return redirect('post:post-create')
+        return redirect('index')
+        '''
+        # 데이터 받기
+        image = request.FILES.get('image')
+        content = request.POST.get('content')
+        # Post모델에 전달받은 데이터 저장
+        Post.objects.create(image=image, content=content, writer=request.user)
+        '''
 
 
 @login_required
