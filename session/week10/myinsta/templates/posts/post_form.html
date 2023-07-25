@@ -2,20 +2,32 @@
 <!--00-->
 {%block content %}
 <h1>Post 입력 화면</h1>
-<!-- form action="데이터가 전달될 주소" enctype="인코딩 타입 지정"-->
+<!-- form action="데이터가 전달될 주소" method = "데이터 생성" enctype="인코딩 타입 지정"-->
 <form
-  action="{%url 'posts:post-create' %}"
+  action=""
   method="POST"
   enctype="multipart/form-data"
 >
+  <!-- 서버 응답 확인 -> 보안 -->
   {% csrf_token %}
   <div>
     <label for="id_image">이미지</label>
-    <input type="file" name="image" accept="image/*" id="id_image" />
+    {%if post.image%}<!--수정할 떄는 기존의 이미지 확인 가능하도록 하고 변경 가능하도록 설정-->
+      <p>현재 : <a href="{{post.image.url}}"> {{post.image.name}}</a></p>
+      <p>변경 : <input type="file" name="image" accept="image/*" id="id_image" /></p>
+    {%else%} 
+      <input type="file" name="image" accept="image/*" id="id_image" />
+    {%endif%}
+    </p>
   </div>
+
   <div>
     <label for="id_content">내용</label>
-    <textarea name="content" id="id_content" cols="30" rows="10"></textarea>
+    <textarea name="content" id="id_content" cols="30" rows="10">
+      {%if post%}
+        {{post.content}}
+      {%endif%}
+    </textarea>
   </div>
   <div>
     <input type="submit" />
