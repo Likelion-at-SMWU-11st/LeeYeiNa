@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import UserCreateForm, SignupForm
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import login, logout
 
 # Create your views here.
@@ -30,9 +30,9 @@ def signup_view(request):
         form = SignupForm
         context = {'form': form}
         return render(request, 'accounts/signup.html', context)
-    else:
+    else:  # Post 요청 시 데이터 확인 후 회원 생성
         form = SignupForm(request.POST)
-        if form.is_valid():
+        if form.is_valid():  # 회원가입 처리
             instance = form.save()
             return redirect('index')
         else:
