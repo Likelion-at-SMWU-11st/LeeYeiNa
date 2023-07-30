@@ -57,23 +57,17 @@ def post_create_form_view(request):
         context = {'form': form}
         return render(request, 'posts/post_form2.html', context)
     else:
+        # Post 입력, 사진 입력(Files) 받기
         form = PostCreatedForm(request.POST, request.FILES)
-        if form.is_valid():
+        if form.is_valid():  # form이 유효한지 확인
             Post.objects.create(
-                image=form.cleaned_data['image'],
+                image=form.cleaned_data['image'],  # form 기반 유효성 검사
                 content=form.cleaned_data['content'],
                 writer=request.user,
             )
         else:  # 잘못된 형식이면 다시 입력
             return redirect('post:post-create')
         return redirect('index')
-        '''
-        # 데이터 받기
-        image = request.FILES.get('image')
-        content = request.POST.get('content')
-        # Post모델에 전달받은 데이터 저장
-        Post.objects.create(image=image, content=content, writer=request.user)
-        '''
 
 
 @login_required

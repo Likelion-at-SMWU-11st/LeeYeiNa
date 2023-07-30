@@ -9,7 +9,12 @@ class PostBasedfForm(forms.Form):
         fields = '__all__'  # Post class의 모든 항목을 가지고 옴
 
 
-class PostCreatedForm(forms.ModelForm):
+class PostCreatedForm(PostBasedfForm):
+    class Meta(PostBasedfForm.Meta):
+        fields = ['image', 'content']
+
+
+class PostUpdateForm(PostBasedfForm):
     class Meta(PostBasedfForm.Meta):
         fields = ['image', 'content']
 
