@@ -3,7 +3,7 @@ from django.http import HttpResponse, JsonResponse, Http404
 from django.views.generic import ListView
 from django.contrib.auth.decorators import login_required
 from .models import Post
-from .forms import PostBasedfForm, PostCreatedForm, PostDetailForm
+from .forms import PostBasedfForm, PostCreatedForm, PostUpdateForm, PostDetailForm
 
 
 def index(request):

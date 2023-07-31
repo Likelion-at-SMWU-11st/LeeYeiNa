@@ -3,7 +3,7 @@ from .models import Post
 # forms는 model과 비슷
 
 
-class PostBasedfForm(forms.Form):
+class PostBasedfForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = '__all__'  # Post class의 모든 항목을 가지고 옴
