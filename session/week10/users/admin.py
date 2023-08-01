@@ -4,5 +4,5 @@ from .models import User
 
 
 @admin.register(User)
-class PostModelAdmin(admin.ModelAdmin):
+class UserModelAdmin(admin.ModelAdmin):
     pass

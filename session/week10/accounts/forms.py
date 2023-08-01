@@ -3,16 +3,16 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
 
 
-class UserBasedFrom(forms.ModelForm):
+class UserBasedForm(forms.ModelForm):
     class Meta:
         model = get_user_model()
         fields = '__all__'
 
 
-class UserCreateForm(UserBasedFrom):
+class UserCreateForm(UserBasedForm):
     password2 = forms.CharField(widget=forms.PasswordInput)
 
-    class Meta(UserBasedFrom.Meta):
+    class Meta(UserBasedForm.Meta):
         fields = ['username', 'email', 'phone', 'password']
 
 

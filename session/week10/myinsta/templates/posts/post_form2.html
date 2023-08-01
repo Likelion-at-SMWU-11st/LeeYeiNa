@@ -9,10 +9,7 @@
   enctype="multipart/form-data"
 >
   {% csrf_token %}
-  <div>
-    {{form.as_p}}
-    <!--폼에 정의한 subject, content 속성에 해당하는 HTML 코드를 자동으로 생성-->
-  </div>
+  <div>{{form.as_p}}</div>
   <div>
     <input type="submit" />
   </div>

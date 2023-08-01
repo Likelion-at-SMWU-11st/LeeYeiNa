@@ -132,4 +132,4 @@ MEDIA_ROOT = BASE_DIR / 'myinsta' / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'users.User'
+AUTH_USER_MODEL = 'users.User'  # 사용자 모델 추가
