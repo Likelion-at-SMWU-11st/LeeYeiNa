@@ -2,8 +2,11 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from posts.views import url_view, url_parameter_view, function_view, index
-from posts.views import class_view
+from posts.views import *
+from rest_framework import routers
+
+router = routers.DefaultRouter()
+router.register('posts', PostModelViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -17,6 +20,8 @@ urlpatterns = [
     path('', index, name='index'),
     path('posts/', include('posts.urls', namespace='posts')),
     path('accounts/', include('accounts.urls', namespace='accounts')),
+
+    path('', include(router.urls)),
 ]
 # 이미지 파일들이 설정된 폴더에 생성
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

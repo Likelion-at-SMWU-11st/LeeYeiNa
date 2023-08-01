@@ -4,6 +4,40 @@ from django.views.generic import ListView
 from django.contrib.auth.decorators import login_required
 from .models import Post
 from .forms import PostBasedfForm, PostCreatedForm, PostUpdateForm, PostDetailForm
+from rest_framework.viewsets import ModelViewSet
+from .serializers import PostModelSerializer
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+
+
+@api_view()
+def calculator(request):
+    num1 = request.GET.get('num1', 0)
+    num2 = request.GET.get('num2', 0)
+    operators = request.GET.get('operators')
+
+    if operators == '^':  # +는 url 규정상 안됨
+        result = int(num1)+int(num2)
+    elif operators == '-':
+        result = int(num1)-int(num2)
+    elif operators == '*':
+        result = int(num1)*int(num2)
+    elif operators == '/':
+        result = int(num1)/int(num2)
+    else:
+        result = 0
+
+    data = {
+        'type': 'FBW',
+        'result': result
+    }
+
+    return Response(data)
+
+
+class PostModelViewSet(ModelViewSet):
+    queryset = Post.objects.all()
+    serializer_class = PostModelSerializer
 
 
 def index(request):
