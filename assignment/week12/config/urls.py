@@ -23,8 +23,6 @@ router = routers.DefaultRouter()
 router.register('boards', BoardModelViewSet)
 
 board_detail = BoardModelViewSet.as_view({
-    'get': 'list',
-    'post': 'create',
     'put': 'update',
     'delete': 'destroy'
 })
