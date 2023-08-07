@@ -22,8 +22,15 @@ from boards.views import BoardModelViewSet
 router = routers.DefaultRouter()
 router.register('boards', BoardModelViewSet)
 
+board_detail = BoardModelViewSet.as_view({
+    'get': 'list',
+    'post': 'create',
+    'put': 'update',
+    'delete': 'destroy'
+})
+
 urlpatterns = [
     path('', include(router.urls)),
     path("admin/", admin.site.urls),
-
+    path('boards/<int:pk>', board_detail, name="board_detail"),
 ]
