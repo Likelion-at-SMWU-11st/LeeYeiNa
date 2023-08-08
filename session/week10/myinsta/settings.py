@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'posts',
     'users',
     'accounts',
-    'rest_framework',
+    "rest_framework",
+    "accounts_token",
 ]
 
 MIDDLEWARE = [

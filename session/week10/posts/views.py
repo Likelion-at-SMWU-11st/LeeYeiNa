@@ -5,11 +5,66 @@ from django.contrib.auth.decorators import login_required
 from .models import Post
 from .forms import PostBasedfForm, PostCreatedForm, PostUpdateForm, PostDetailForm
 from rest_framework.viewsets import ModelViewSet
-from .serializers import PostModelSerializer
-from rest_framework.decorators import api_view
+from .serializers import PostModelSerializer, PostListSerializer, PostRetrieveSerializer, CommentListModelSerializer
+from rest_framework.decorators import api_view, action
 from rest_framework.response import Response
+from rest_framework import generics, status
 
 
+class PostRetrieveView(generics.RetrieveAPIView):
+    queryset = Post.objects.all()
+    serializer_class = PostListSerializer
+
+
+class PostRetrieveUpdateView(generics.RetrieveAPIView, generics.UpdateAPIView, generics.DestroyAPIView):
+    queryset = Post.objects.all()
+    serializer_class = PostRetrieveSerializer
+
+
+class PostListView(generics.ListAPIView, generics.CreateAPIView):
+    queryset = Post.objects.all()
+    serializer_class = PostListSerializer
+
+
+'''
+class PostUpdateView(generics.UpdateAPIView):
+    queryset = Post.objects.all()
+    serializer_class = PostListSerializer
+'''
+
+
+class PostListCreateView(generics.ListAPIView, generics.CreateAPIView):
+    queryset = Post.objects.all()
+    serializer_class = PostListSerializer
+
+    def psot(self, request, *args, **kargs):
+        return self.create(request, *args, **kargs)
+
+    def create(self, request, *args, **kargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        # 작성자
+        if request.user.is_authenticatd:
+            serializer.save(writer=request.user)
+        else:
+            serializer.save()
+        # self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, header=headers)
+
+
+class PostModelViewSet(ModelViewSet):
+    queryset = Post.objects.all()
+    serializer_class = PostListSerializer
+
+    @action(detail=True, methods=['get'])
+    def get_comment_all(self, request, pk=None):
+        post = self.get_object()
+        comment_all = post.comment_set.all()
+        return Response()
+
+
+'''
 @api_view()
 def calculator(request):
     num1 = request.GET.get('num1', 0)
@@ -33,6 +88,7 @@ def calculator(request):
     }
 
     return Response(data)
+'''
 
 
 class PostModelViewSet(ModelViewSet):
