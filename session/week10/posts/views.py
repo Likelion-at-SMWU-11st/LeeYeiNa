@@ -11,28 +11,33 @@ from rest_framework.response import Response
 from rest_framework import generics, status
 
 
+# 게시글 상세
 class PostRetrieveView(generics.RetrieveAPIView):
     queryset = Post.objects.all()
-    serializer_class = PostListSerializer
+    serializer_class = PostRetrieveSerializer
 
 
+# 게시글 상세 + 삭제 + 수정
 class PostRetrieveUpdateView(generics.RetrieveAPIView, generics.UpdateAPIView, generics.DestroyAPIView):
     queryset = Post.objects.all()
     serializer_class = PostRetrieveSerializer
 
 
+# 게시글 목록 + 생성
 class PostListView(generics.ListAPIView, generics.CreateAPIView):
     queryset = Post.objects.all()
     serializer_class = PostListSerializer
 
 
 '''
+#게시글 수정
 class PostUpdateView(generics.UpdateAPIView):
     queryset = Post.objects.all()
     serializer_class = PostListSerializer
 '''
 
 
+# 게시글 목록 + 생성
 class PostListCreateView(generics.ListAPIView, generics.CreateAPIView):
     queryset = Post.objects.all()
     serializer_class = PostListSerializer
@@ -50,7 +55,7 @@ class PostListCreateView(generics.ListAPIView, generics.CreateAPIView):
             serializer.save()
         # self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
-        return Response(serializer.data, status=status.HTTP_201_CREATED, header=headers)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
 
 class PostModelViewSet(ModelViewSet):

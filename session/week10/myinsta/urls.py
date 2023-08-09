@@ -18,7 +18,7 @@ urlpatterns = [
     path('cbv/', class_view.as_view()),  # as_view: 진입 메소드
 
     # path('', index, name='index'),
-    path('posts/', PostListCreateView.as_view()),
+    path('posts/', PostListCreateView.as_view(), name='post-list-create'),
     path('posts/<int:pk>/', PostRetrieveUpdateView.as_view(), name='post-detail'),
     # path('posts/', include('posts.urls', namespace='posts')),
     path('accounts/', include('accounts.urls', namespace='accounts')),
