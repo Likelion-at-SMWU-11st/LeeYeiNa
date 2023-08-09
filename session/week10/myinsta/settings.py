@@ -42,7 +42,9 @@ INSTALLED_APPS = [
     'users',
     'accounts',
     "rest_framework",
+    "rest_framework.authtoken",
     "accounts_token",
+    "drf_yasg",
 ]
 
 MIDDLEWARE = [
@@ -135,3 +137,14 @@ MEDIA_ROOT = BASE_DIR / 'myinsta' / 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'users.User'  # 사용자 모델 추가
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ]
+}

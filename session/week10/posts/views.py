@@ -9,6 +9,7 @@ from .serializers import PostModelSerializer, PostListSerializer, PostRetrieveSe
 from rest_framework.decorators import api_view, action
 from rest_framework.response import Response
 from rest_framework import generics, status
+from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 
 
 # 게시글 상세
@@ -62,10 +63,29 @@ class PostModelViewSet(ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostListSerializer
 
+    def get_permissions(self):
+        action = self.action
+        if action == 'list':
+            permission_classes = [AllowAny]
+        elif action == 'create':
+            permission_classes = [IsAuthenticated]
+        elif action == 'create':
+            permission_classes = [IsAuthenticated]
+        elif action == 'retrieve':
+            permission_classes = [IsAdminUser]
+        elif action == 'update':
+            permission_classes = [IsAdminUser]
+        elif action == 'partial_update':
+            permission_classes = [IsAdminUser]
+        elif action == 'destroy':
+            permission_classes = [IsAdminUser]
+        return [permission() for permission in permission_classes]
+
     @action(detail=True, methods=['get'])
     def get_comment_all(self, request, pk=None):
         post = self.get_object()
         comment_all = post.comment_set.all()
+        serializer = CommentListModelSerializer(comment_all, many=True)
         return Response()
 
 
