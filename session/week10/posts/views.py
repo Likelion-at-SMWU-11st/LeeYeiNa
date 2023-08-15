@@ -9,30 +9,36 @@ from .serializers import PostModelSerializer, PostListSerializer, PostRetrieveSe
 from rest_framework.decorators import api_view, action
 from rest_framework.response import Response
 from rest_framework import generics, status
+from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 
 
+# 게시글 상세
 class PostRetrieveView(generics.RetrieveAPIView):
     queryset = Post.objects.all()
-    serializer_class = PostListSerializer
+    serializer_class = PostRetrieveSerializer
 
 
+# 게시글 상세 + 삭제 + 수정
 class PostRetrieveUpdateView(generics.RetrieveAPIView, generics.UpdateAPIView, generics.DestroyAPIView):
     queryset = Post.objects.all()
     serializer_class = PostRetrieveSerializer
 
 
+# 게시글 목록 + 생성
 class PostListView(generics.ListAPIView, generics.CreateAPIView):
     queryset = Post.objects.all()
     serializer_class = PostListSerializer
 
 
 '''
+#게시글 수정
 class PostUpdateView(generics.UpdateAPIView):
     queryset = Post.objects.all()
     serializer_class = PostListSerializer
 '''
 
 
+# 게시글 목록 + 생성
 class PostListCreateView(generics.ListAPIView, generics.CreateAPIView):
     queryset = Post.objects.all()
     serializer_class = PostListSerializer
@@ -50,17 +56,36 @@ class PostListCreateView(generics.ListAPIView, generics.CreateAPIView):
             serializer.save()
         # self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
-        return Response(serializer.data, status=status.HTTP_201_CREATED, header=headers)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
 
 class PostModelViewSet(ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostListSerializer
 
+    def get_permissions(self):
+        action = self.action
+        if action == 'list':
+            permission_classes = [AllowAny]
+        elif action == 'create':
+            permission_classes = [IsAuthenticated]
+        elif action == 'create':
+            permission_classes = [IsAuthenticated]
+        elif action == 'retrieve':
+            permission_classes = [IsAdminUser]
+        elif action == 'update':
+            permission_classes = [IsAdminUser]
+        elif action == 'partial_update':
+            permission_classes = [IsAdminUser]
+        elif action == 'destroy':
+            permission_classes = [IsAdminUser]
+        return [permission() for permission in permission_classes]
+
     @action(detail=True, methods=['get'])
     def get_comment_all(self, request, pk=None):
         post = self.get_object()
         comment_all = post.comment_set.all()
+        serializer = CommentListModelSerializer(comment_all, many=True)
         return Response()
 
 

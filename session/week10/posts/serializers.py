@@ -16,7 +16,7 @@ class PostRetrieveSerializer(PostModelSerializer):
 
 class PostListSerializer(PostModelSerializer):
     class Meta(PostModelSerializer.Meta):
-        fields = ['id', 'image', 'content']
+        fields = ['id', 'image', 'content', 'created_at', 'view_count']
         depth = 1
 
 
